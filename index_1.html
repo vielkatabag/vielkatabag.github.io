@@ -1,727 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vielka Tabag — Virtual Assistant</title>
-  <meta name="description" content="Virtual Assistant and Data Entry Specialist based in Tarlac, Philippines. Organized, reliable, and available across US, AU, and UK time zones." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #f7f3ef;
-      --cream-mid: #f0e8e2;
-      --brown-light: #d4c4b8;
-      --brown-mid: #c4a896;
-      --brown: #b89a88;
-      --brown-dark: #7a5c4a;
-      --brown-deeper: #5a3e30;
-      --ink: #3a2e28;
-      --ink-light: #6b5548;
-      --text-body: #5c4a42;
-      --text-muted: #9a7e6f;
-      --border: rgba(122, 92, 74, 0.15);
-      --border-mid: rgba(122, 92, 74, 0.25);
-      --surface: #ffffff;
-      --surface-soft: #faf7f5;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: var(--cream);
-      color: var(--text-body);
-      line-height: 1.7;
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* NAV */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(247, 243, 239, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 0.5px solid var(--border-mid);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--brown-dark); }
-
-    .nav-cta {
-      font-size: 13px;
-      padding: 7px 18px;
-      background: var(--brown-dark);
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .nav-cta:hover { background: var(--brown-deeper); }
-
-    /* HERO */
-    .hero {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-    }
-
-    .hero-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: var(--cream-mid);
-      border: 2px solid var(--brown-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px;
-      color: var(--brown-dark);
-      margin: 0 auto 1.75rem;
-    }
-
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--brown);
-      margin-bottom: 0.75rem;
-    }
-
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 400;
-      color: var(--ink);
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-tagline {
-      font-size: 17px;
-      color: var(--ink-light);
-      max-width: 520px;
-      margin: 0 auto 2rem;
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .badge {
-      font-size: 12px;
-      padding: 5px 14px;
-      border-radius: 20px;
-      background: var(--cream-mid);
-      color: var(--brown-dark);
-      border: 0.5px solid var(--brown-light);
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 12px 28px;
-      background: var(--brown-dark);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-primary:hover { background: var(--brown-deeper); }
-
-    .btn-outline {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      padding: 12px 28px;
-      background: transparent;
-      color: var(--brown-dark);
-      border: 0.5px solid var(--brown-mid);
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .btn-outline:hover { background: var(--cream-mid); border-color: var(--brown-dark); }
-
-    /* DIVIDER */
-    .divider {
-      border: none;
-      border-top: 0.5px solid var(--border-mid);
-      margin: 0;
-    }
-
-    /* SECTIONS */
-    .section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .section + .divider + .section { padding-top: 4rem; }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--brown);
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 26px;
-      font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
-      line-height: 1.3;
-    }
-
-    /* ABOUT */
-    .about-text {
-      font-size: 16px;
-      color: var(--text-body);
-      line-height: 1.8;
-      max-width: 620px;
-    }
-
-    /* SERVICES */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 0.5rem;
-    }
-
-    .service-card {
-      background: var(--surface);
-      border: 0.5px solid var(--border-mid);
-      border-radius: 12px;
-      padding: 1.4rem 1.25rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .service-card:hover {
-      border-color: var(--brown-mid);
-      box-shadow: 0 4px 16px rgba(122, 92, 74, 0.08);
-    }
-
-    .service-icon {
-      font-size: 22px;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .service-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-
-    .service-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    /* EXPERIENCE */
-    .exp-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .exp-item {
-      display: grid;
-      grid-template-columns: 10px 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-
-    .exp-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--brown-mid);
-      margin-top: 5px;
-    }
-
-    .exp-role {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 3px;
-    }
-
-    .exp-company {
-      font-size: 12px;
-      color: var(--brown);
-      margin-bottom: 8px;
-      letter-spacing: 0.02em;
-    }
-
-    .exp-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .exp-bullets li {
-      font-size: 13.5px;
-      color: var(--text-body);
-      line-height: 1.65;
-      padding-left: 1rem;
-      position: relative;
-    }
-
-    .exp-bullets li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--brown-light);
-      font-size: 12px;
-    }
-
-    /* SKILLS */
-    .skills-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-tag {
-      font-size: 13px;
-      padding: 6px 14px;
-      background: var(--surface);
-      border: 0.5px solid var(--border-mid);
-      border-radius: 20px;
-      color: var(--text-body);
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    .skill-tag:hover {
-      background: var(--cream-mid);
-      border-color: var(--brown-mid);
-    }
-
-    /* TOOLS */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-    }
-
-    .tool-group {
-      background: var(--surface);
-      border: 0.5px solid var(--border-mid);
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-    }
-
-    .tool-group-name {
-      font-size: 10.5px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--brown);
-      margin-bottom: 8px;
-    }
-
-    .tool-list {
-      font-size: 13px;
-      color: var(--text-body);
-      line-height: 1.75;
-    }
-
-    /* CONTACT */
-    .contact-section {
-      background: var(--surface);
-      border-top: 0.5px solid var(--border-mid);
-    }
-
-    .contact-inner {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-
-    .contact-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 32px;
-      font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 0.75rem;
-    }
-
-    .contact-sub {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13.5px;
-      padding: 10px 22px;
-      border-radius: 8px;
-      background: var(--cream);
-      border: 0.5px solid var(--border-mid);
-      color: var(--brown-dark);
-      text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .contact-link:hover {
-      background: var(--cream-mid);
-      border-color: var(--brown-dark);
-    }
-
-    .contact-link svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 0.5px solid var(--border);
-      padding: 1.5rem 2rem;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-      nav { padding: 0 1.25rem; }
-      .nav-links { display: none; }
-      .hero { padding: 3.5rem 1.25rem 3rem; }
-      .section { padding: 3rem 1.25rem; }
-      .contact-inner { padding: 3.5rem 1.25rem; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .tools-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 400px) {
-      .services-grid { grid-template-columns: 1fr; }
-    }
-
-    /* SCROLL FADE-IN */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .fade-in { opacity: 1; transform: none; transition: none; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">Vielka Tabag</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#tools">Tools</a></li>
-    </ul>
-    <a href="mailto:vtabag18@gmail.com" class="nav-cta">Get in touch</a>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-avatar" aria-hidden="true">VT</div>
-    <p class="hero-eyebrow">Virtual Assistant &amp; Data Entry Specialist</p>
-    <h1>Keeping your business<br><em>organized and moving.</em></h1>
-    <p class="hero-tagline">Reliable, detail-oriented support for small businesses and remote teams. From inbox management to project tracking — I handle the details so you can focus on the bigger picture.</p>
-    <div class="hero-badges">
-      <span class="badge">Remote Ready</span>
-      <span class="badge">Tarlac, Philippines</span>
-      <span class="badge">Available Now</span>
-      <span class="badge">US · AU · UK Time Zones</span>
-    </div>
-    <div class="hero-cta">
-      <a href="mailto:vtabag18@gmail.com" class="btn-primary">Work with me</a>
-      <a href="https://www.upwork.com/freelancers/~01a91d56948c3300de?mp_source=share" target="_blank" rel="noopener" class="btn-outline">View Upwork profile</a>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- ABOUT -->
-  <section class="section fade-in" id="about">
-    <p class="section-label">About me</p>
-    <h2 class="section-title">The person behind the work</h2>
-    <p class="about-text">
-      I'm a Virtual Assistant based in Tarlac, Philippines, supporting small businesses and remote teams with admin, communication, and operations tasks. I'm organized by nature, quick to pick up new tools, and I take follow-through seriously. Whether it's cleaning up a messy inbox, maintaining a spreadsheet database, or writing SOPs to help a team stay consistent — I treat every task with care. I work well independently, communicate clearly, and I'm comfortable across US, Australian, and UK time zones.
-    </p>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- SERVICES -->
-  <section class="section fade-in" id="services">
-    <p class="section-label">Services</p>
-    <h2 class="section-title">What I can do for you</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="service-icon">✉️</span>
-        <p class="service-title">Inbox &amp; Email Management</p>
-        <p class="service-desc">Sorting, flagging, drafting replies, and keeping your inbox organized using templates and clear response flows.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">📅</span>
-        <p class="service-title">Calendar &amp; Scheduling</p>
-        <p class="service-desc">Booking meetings, managing appointments, and keeping your schedule conflict-free via Google Calendar and Calendly.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">📊</span>
-        <p class="service-title">Data Entry &amp; Spreadsheets</p>
-        <p class="service-desc">Maintaining lead lists, contact databases, and reports in Google Sheets or Excel — clean, accurate, and up to date.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">✅</span>
-        <p class="service-title">Task &amp; Project Tracking</p>
-        <p class="service-desc">Updating task statuses, checklists, and deadlines in Trello, Asana, or Notion so nothing falls through the cracks.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">📱</span>
-        <p class="service-title">Social Media Assistance</p>
-        <p class="service-desc">Scheduling posts, monitoring comments and messages, and creating simple graphics using Canva and Meta Business Suite.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">📝</span>
-        <p class="service-title">SOP &amp; Document Creation</p>
-        <p class="service-desc">Writing step-by-step SOPs, formatting reports, and organizing documents and slides for clear team-wide use.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">🔍</span>
-        <p class="service-title">Online Research</p>
-        <p class="service-desc">Researching topics, tools, products, and competitor information to support business decisions.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">🛒</span>
-        <p class="service-title">E-commerce Support</p>
-        <p class="service-desc">Uploading product listings, writing basic descriptions, and responding to customer inquiries on time.</p>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- EXPERIENCE -->
-  <section class="section fade-in" id="experience">
-    <p class="section-label">Experience</p>
-    <h2 class="section-title">Work history</h2>
-    <div class="exp-list">
-      <div class="exp-item">
-        <div class="exp-dot"></div>
-        <div>
-          <p class="exp-role">Virtual Assistant &amp; Data Entry Specialist</p>
-          <p class="exp-company">Freelance — Remote / Ongoing</p>
-          <ul class="exp-bullets">
-            <li>Managed and organized email inboxes — flagged priorities, replied using templates, and followed up with clients on time</li>
-            <li>Maintained and updated spreadsheets for lead tracking, inventory lists, and contact databases in Google Sheets and Excel</li>
-            <li>Cleaned, organized, and reformatted data files for accuracy and easy access</li>
-            <li>Scheduled meetings, training sessions, and appointments using Google Calendar and Calendly</li>
-            <li>Organized and maintained files and folders in Google Drive and Dropbox</li>
-            <li>Created graphics using Canva, scheduled posts on Facebook and Instagram, and monitored comments and messages</li>
-            <li>Took notes during Zoom meetings and shared summaries and task lists with the team</li>
-            <li>Drafted step-by-step SOPs for routine tasks to improve team consistency</li>
-            <li>Tracked task progress using Trello and Asana — updated statuses, organized checklists, and monitored deadlines</li>
-            <li>Built Google Forms to collect client info, feedback, and internal inputs</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-dot"></div>
-        <div>
-          <p class="exp-role">Admin &amp; Operations Support</p>
-          <p class="exp-company">Various Clients — Remote</p>
-          <ul class="exp-bullets">
-            <li>Responded to client messages via Gmail, Outlook, WhatsApp, and Facebook Messenger professionally and on time</li>
-            <li>Researched blog topics, product options, competitor information, and tools to support business decisions</li>
-            <li>Uploaded product listings, wrote basic descriptions, and responded to customer inquiries for e-commerce clients</li>
-            <li>Formatted and cleaned up documents, reports, and slides for clear and professional presentation</li>
-            <li>Sent follow-up messages, reminders, and thank-you notes after tasks, purchases, or meetings</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- SKILLS -->
-  <section class="section fade-in" id="skills">
-    <p class="section-label">Skills</p>
-    <h2 class="section-title">What I bring to the table</h2>
-    <div class="skills-wrap">
-      <span class="skill-tag">Email inbox management</span>
-      <span class="skill-tag">Calendar scheduling</span>
-      <span class="skill-tag">Data entry &amp; cleaning</span>
-      <span class="skill-tag">Spreadsheet management</span>
-      <span class="skill-tag">Client communication</span>
-      <span class="skill-tag">Online research</span>
-      <span class="skill-tag">File &amp; folder organization</span>
-      <span class="skill-tag">SOP writing</span>
-      <span class="skill-tag">Social media scheduling</span>
-      <span class="skill-tag">Meeting notes &amp; summaries</span>
-      <span class="skill-tag">Task monitoring</span>
-      <span class="skill-tag">E-commerce support</span>
-      <span class="skill-tag">Canva design</span>
-      <span class="skill-tag">Form creation</span>
-      <span class="skill-tag">Content formatting</span>
-      <span class="skill-tag">Customer follow-up</span>
-      <span class="skill-tag">Report creation</span>
-      <span class="skill-tag">Process documentation</span>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- TOOLS -->
-  <section class="section fade-in" id="tools">
-    <p class="section-label">Tools</p>
-    <h2 class="section-title">What I work with</h2>
-    <div class="tools-grid">
-      <div class="tool-group">
-        <p class="tool-group-name">Communication</p>
-        <p class="tool-list">Gmail · Outlook · WhatsApp · Facebook Messenger · Zoom</p>
-      </div>
-      <div class="tool-group">
-        <p class="tool-group-name">Organization</p>
-        <p class="tool-list">Google Drive · Dropbox · Google Calendar · Notion</p>
-      </div>
-      <div class="tool-group">
-        <p class="tool-group-name">Productivity</p>
-        <p class="tool-list">Google Docs · Sheets · Slides · Microsoft Word · Excel · PowerPoint</p>
-      </div>
-      <div class="tool-group">
-        <p class="tool-group-name">Project tracking</p>
-        <p class="tool-list">Trello · Asana</p>
-      </div>
-      <div class="tool-group">
-        <p class="tool-group-name">Design &amp; Social</p>
-        <p class="tool-list">Canva · Meta Business Suite · Hootsuite</p>
-      </div>
-      <div class="tool-group">
-        <p class="tool-group-name">Forms &amp; Scheduling</p>
-        <p class="tool-list">Jotform · Google Forms · Calendly</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <div class="contact-section">
-    <div class="contact-inner fade-in" id="contact">
-      <p class="section-label" style="margin-bottom: 0.75rem;">Contact</p>
-      <h2 class="contact-title">Let's work together</h2>
-      <p class="contact-sub">Open to freelance and remote roles. Based in Tarlac, Philippines — available across US, AU, and UK time zones.</p>
-      <div class="contact-links">
-        <a href="mailto:vtabag18@gmail.com" class="contact-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-          vtabag18@gmail.com
-        </a>
-        <a href="https://www.upwork.com/freelancers/~01a91d56948c3300de?mp_source=share" target="_blank" rel="noopener" class="contact-link">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.545-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg>
-          Upwork profile
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Vielka Tabag. All rights reserved.</p>
-  </footer>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  </script>
-
-</body>
-</html>
+Vielka Tabag
+	•	About
+	•	Services
+	•	Experience
+	•	Tools
+Get in touch
+VT
+VIRTUAL ASSISTANT & DATA ENTRY SPECIALIST
+Keeping your business organized and moving.
+Reliable, detail-oriented support for small businesses and remote teams. From inbox management to project tracking — I handle the details so you can focus on the bigger picture.
+Remote Ready
+Tarlac, Philippines
+Available Now
+US · AU · UK Time Zones
+Work with me
+View Upwork profile
+
+ABOUT ME
+The person behind the work
+I'm a Virtual Assistant based in Tarlac, Philippines, supporting small businesses and remote teams with admin, communication, and operations tasks. I'm organized by nature, quick to pick up new tools, and I take follow-through seriously. Whether it's cleaning up a messy inbox, maintaining a spreadsheet database, or writing SOPs to help a team stay consistent — I treat every task with care. I work well independently, communicate clearly, and I'm comfortable across US, Australian, and UK time zones.
+
+SERVICES
+What I can do for you
+✉️
+Inbox & Email Management
+Sorting, flagging, drafting replies, and keeping your inbox organized using templates and clear response flows.
+📅
+Calendar & Scheduling
+Booking meetings, managing appointments, and keeping your schedule conflict-free via Google Calendar and Calendly.
+📊
+Data Entry & Spreadsheets
+Maintaining lead lists, contact databases, and reports in Google Sheets or Excel — clean, accurate, and up to date.
+✅
+Task & Project Tracking
+Updating task statuses, checklists, and deadlines in Trello, Asana, or Notion so nothing falls through the cracks.
+📱
+Social Media Assistance
+Scheduling posts, monitoring comments and messages, and creating simple graphics using Canva and Meta Business Suite.
+📝
+SOP & Document Creation
+Writing step-by-step SOPs, formatting reports, and organizing documents and slides for clear team-wide use.
+🔍
+Online Research
+Researching topics, tools, products, and competitor information to support business decisions.
+🛒
+E-commerce Support
+Uploading product listings, writing basic descriptions, and responding to customer inquiries on time.
+
+EXPERIENCE
+Work history
+
+Virtual Assistant & Data Entry Specialist
+Freelance — Remote / Ongoing
+	•	Managed and organized email inboxes — flagged priorities, replied using templates, and followed up with clients on time
+	•	Maintained and updated spreadsheets for lead tracking, inventory lists, and contact databases in Google Sheets and Excel
+	•	Cleaned, organized, and reformatted data files for accuracy and easy access
+	•	Scheduled meetings, training sessions, and appointments using Google Calendar and Calendly
+	•	Organized and maintained files and folders in Google Drive and Dropbox
+	•	Created graphics using Canva, scheduled posts on Facebook and Instagram, and monitored comments and messages
+	•	Took notes during Zoom meetings and shared summaries and task lists with the team
+	•	Drafted step-by-step SOPs for routine tasks to improve team consistency
+	•	Tracked task progress using Trello and Asana — updated statuses, organized checklists, and monitored deadlines
+	•	Built Google Forms to collect client info, feedback, and internal inputs
+
+Admin & Operations Support
+Various Clients — Remote
+	•	Responded to client messages via Gmail, Outlook, WhatsApp, and Facebook Messenger professionally and on time
+	•	Researched blog topics, product options, competitor information, and tools to support business decisions
+	•	Uploaded product listings, wrote basic descriptions, and responded to customer inquiries for e-commerce clients
+	•	Formatted and cleaned up documents, reports, and slides for clear and professional presentation
+	•	Sent follow-up messages, reminders, and thank-you notes after tasks, purchases, or meetings
+
+SKILLS
+What I bring to the table
+Email inbox management
+Calendar scheduling
+Data entry & cleaning
+Spreadsheet management
+Client communication
+Online research
+File & folder organization
+SOP writing
+Social media scheduling
+Meeting notes & summaries
+Task monitoring
+E-commerce support
+Canva design
+Form creation
+Content formatting
+Customer follow-up
+Report creation
+Process documentation
+
+TOOLS
+What I work with
+COMMUNICATION
+Gmail · Outlook · WhatsApp · Facebook Messenger · Zoom
+ORGANIZATION
+Google Drive · Dropbox · Google Calendar · Notion
+PRODUCTIVITY
+Google Docs · Sheets · Slides · Microsoft Word · Excel · PowerPoint
+PROJECT TRACKING
+Trello · Asana
+DESIGN & SOCIAL
+Canva · Meta Business Suite · Hootsuite
+FORMS & SCHEDULING
+Jotform · Google Forms · Calendly
+CONTACT
+Let's work together
+Open to freelance and remote roles. Based in Tarlac, Philippines — available across US, AU, and UK time zones.
+
+vtabag18@gmail.com
+
+Upwork profile
+© 2026 Vielka Tabag. All rights reserved.
